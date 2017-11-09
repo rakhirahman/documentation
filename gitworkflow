@@ -1,0 +1,70 @@
+
+
+Standard Git Workflow
+
+Clone the remote repository to your local machine
+git clone repository-url 2. Make whatever changes to the files you need to make.
+
+You can run the git status command to show a list of files that have been changed since the last commit. The git diff command will show the changes that have been made inside of those files. 3. Add the changes to the staging index
+
+You use the git add filename command to stage a single file that was listed when you ran git status. git add . will stage all files that have been changed as well as new files added. 4. Commit the changes
+
+git commit will permanently commit the changes that have been staged to the repository. A text editor will pop up after you run the command so you can add a commit message or you can do a git commit -m 'message here' instead. 5. Push the changes to the remote repository.
+
+git push origin master will push the changes back to the main upstream repository that you cloned it from.
+
+If that command doesn't work, you can list the remote repositories with git remote -v then change origin in the previous command to the correct remote name you want to push to.
+
+Git Concepts
+
+When working with a Git repository, there are three main concepts that you need to be familiar with.
+
+Working Tree / Working Directory
+
+After you have cloned a repository to your local computer (more on this below), the files you see in the directory are known as the "working tree". This is where you create or modify any files that you are currently working on. Once you have finished with the changes you needed to make, you will add them to the staging index.
+
+Staging Index
+
+The staging index allows you to selectively commit only the changes that you are interested in. The git status command will show you all changes that have been made to the working directory since the last commit has been made.
+
+ repository-directory: git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+# modified:   Gemfile
+#	modified:   Gemfile.lock
+#	modified:   config/deploy.rb
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+capistrano deploy.rb config file."
+From the output of that command, you can see that three files have been modified but none have been added to the staging index yet. If you wish to commit just the Gemfile above, you would add it to the staging index by typing git add Gemfile. Then git commit.
+
+You can commit all modified files with the git commit -a command.
+
+Branches
+
+A branch within Git is similar to a branch within SVN. After initializing a git repository for the first time, you will be working within the master branch. You can see a list of all branches of the current repository using the git branch command.
+
+repository-directory: git branch
+  code-cleanup
+* master
+  survey-index-log
+The branch with the * next to it is the branch that you are currently working in.
+
+Checking out a branch
+
+To checkout a branch, use the git checkout command. To check out the code-cleanup branch that was listed above you would type git checkout code-cleanup.
+
+Merging branches
+
+Once you have made changes and committed them to the branch you were working on, you can merge it back in to the master branch by checking out the master branch and executing the git merge command.
+
+Merging the code-cleanup branch back into master would go like this.
+
+git checkout master
+git merge code-cleanup
+If there are any conflicts they will be listed. Fixing the conflicts is self explanatory. Just open up the file listed as having a conflict and you will see.
+
+If you did have to fix a conflict, make sure to commit all files after the conflicts have been resolved with git commit -a.
